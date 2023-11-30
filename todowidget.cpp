@@ -3,6 +3,7 @@
 #include <QListWidget>
 #include <QPushButton>
 #include <QIcon>
+#include <QListWidgetItem>
 
 #include "todowidget.h"
 #include "todo.h"
@@ -42,15 +43,18 @@ void TodoWidget::addItem()
 {
     QString newItemText = "New Item";
     this->mainTodo.addAction(newItemText);
+    this->updateList();
 }
 
 void TodoWidget::updateList()
 {
-    listWidget->clear();
+    this->listWidget->clear();
 
     QVector<Action> actions = this->mainTodo.getActions();
     for (Action &action : actions)
     {
-        listWidget->addItem(action.getName());
+        int latestRow = this->listWidget->currentRow();
+        QListWidgetItem *widgetItem = new QListWidgetItem(action.getName());
+        this->listWidget->insertItem(latestRow, widgetItem);
     }
 }

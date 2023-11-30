@@ -11,7 +11,6 @@ class TodoWidget : public QWidget
 public:
     Todo mainTodo;
     explicit TodoWidget(QWidget *parent = nullptr);
-
 private:
     QListWidget *listWidget;
     void addItem();

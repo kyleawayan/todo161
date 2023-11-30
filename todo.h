@@ -18,8 +18,6 @@ public:
     void addEvent(QString name, QDateTime date);
     void deleteAction(int id);
     QVector<Action> getActions();
-signals:
-    void actionsChanged(QVector<Action> actions);
 private:
     QVector<Action> actions;
 };

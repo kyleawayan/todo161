@@ -12,18 +12,19 @@ Todo::Todo() {
 }
 
 void Todo::addAction(QString name) {
-    int latestId = this->actions.last().getId();
+    int latestId = 0;
+    if (!this->actions.empty()) {
+        latestId = this->actions.last().getId();
+    }
     Action newAction(latestId+1, name);
 
     this->actions.append(newAction);
-    emit actionsChanged(this->actions);
 }
 
 void Todo::addEvent(QString name, QDateTime) {}
 
 void Todo::deleteAction(int id) {
     this->deleteAction(id);
-    emit actionsChanged(this->actions);
 }
 
 QVector<Action> Todo::getActions() {
