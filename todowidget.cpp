@@ -27,6 +27,7 @@ TodoWidget::TodoWidget(QWidget *parent)
 
     // Create a QListWidget
     listWidget = new QListWidget(this);
+    listWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     // Add widgets to the toolbar layout
     toolbarLayout->addWidget(addButton);
