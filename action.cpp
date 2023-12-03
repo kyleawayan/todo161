@@ -5,11 +5,6 @@
 Action::Action(int id, QString name) {
     this->id = id;
     this->name = name;
-    this->completed = false;
-}
-
-void Action::markAsCompleted() {
-    this->completed = true;
 }
 
 int Action::getId() {
