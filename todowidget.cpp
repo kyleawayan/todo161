@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QIcon>
 #include <QListWidgetItem>
+#include <QInputDialog>
 
 #include "todowidget.h"
 #include "todo.h"
@@ -22,10 +23,10 @@ TodoWidget::TodoWidget(QWidget *parent)
     QHBoxLayout *toolbarLayout = new QHBoxLayout(toolbarWidget);
 
     // Create a QPushButton with a plus icon
-    QPushButton *addButton = new QPushButton("Add item", this);
+    QPushButton *addButton = new QPushButton("Add Action", this);
     connect(addButton, &QPushButton::clicked, this, &TodoWidget::addItem);
 
-    QPushButton *deleteButton = new QPushButton("Mark completed", this);
+    QPushButton *deleteButton = new QPushButton("Mark Completed", this);
     connect(deleteButton, &QPushButton::clicked, this, &TodoWidget::removeItem);
 
     // Create a QListWidget
@@ -46,9 +47,16 @@ TodoWidget::TodoWidget(QWidget *parent)
 
 void TodoWidget::addItem()
 {
-    QString newItemText = "New Item";
-    this->mainTodo.addAction(newItemText);
-    this->updateList();
+    bool ok;
+    QInputDialog* inputDialog = new QInputDialog();
+    QString text = QInputDialog::getText(this, tr("Add Action"),
+                                        tr("What do you need to do?"), QLineEdit::Normal,
+                                        "" ,&ok);
+    if (ok && !text.isEmpty()) {
+        this->mainTodo.addAction(text);
+        this->updateList();
+    }
+    delete inputDialog;
 }
 
 void TodoWidget::removeItem()
