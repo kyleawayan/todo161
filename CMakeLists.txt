@@ -26,6 +26,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         todo.h todo.cpp
         action.h action.cpp
         todowidget.h todowidget.cpp
+        event.h event.cpp
+        eventdialog.h eventdialog.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET todo161 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

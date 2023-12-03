@@ -10,6 +10,7 @@
 
 #include "todowidget.h"
 #include "todo.h"
+#include "eventdialog.h"
 
 TodoWidget::TodoWidget(QWidget *parent)
     : QWidget(parent)
@@ -27,6 +28,8 @@ TodoWidget::TodoWidget(QWidget *parent)
     // Create toolbar buttons
     QPushButton *addButton = new QPushButton("Add Action", this);
     connect(addButton, &QPushButton::clicked, this, &TodoWidget::addItem);
+    QPushButton *addEvent = new QPushButton("Add Event", this);
+    connect(addEvent, &QPushButton::clicked, this, &TodoWidget::addEvent);
     QPushButton *deleteButton = new QPushButton("Mark Completed", this);
     connect(deleteButton, &QPushButton::clicked, this, &TodoWidget::removeItem);
 
@@ -41,11 +44,12 @@ TodoWidget::TodoWidget(QWidget *parent)
 
     // Add widgets to the toolbar layout
     toolbarLayout->addWidget(addButton);
+    toolbarLayout->addWidget(addEvent);
     toolbarLayout->addWidget(deleteButton);
 
     // What do you need to do today?
     QLabel* label = new QLabel(this);
-    label->setText("Things to do today:");
+    label->setText("Things to do:");
 
     // Add widgets to the main layout
     mainLayout->addWidget(lcdScreen);
@@ -71,6 +75,18 @@ void TodoWidget::addItem()
     delete inputDialog;
 }
 
+void TodoWidget::addEvent()
+{
+    EventDialog dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        QString eventName = dialog.getEventName();
+        QDateTime eventDateTime = dialog.getEventDateTime();
+
+        this->mainTodo.addEvent(eventName, eventDateTime);
+        this->updateList();
+    }
+}
+
 void TodoWidget::removeItem()
 {
     QList<QListWidgetItem*> selectedItems = this->listWidget->selectedItems();
@@ -87,15 +103,15 @@ void TodoWidget::updateList()
 {
     this->listWidget->clear();
 
-    QVector<Action> actions = this->mainTodo.getActions();
+    QVector<Action*> actions = this->mainTodo.getActions();
     int actionsCount = actions.length();
     this->lcdScreen->display(actionsCount);
 
-    for (Action &action : actions)
+    for (Action* action : actions)
     {
         int latestRow = this->listWidget->currentRow();
-        QListWidgetItem *widgetItem = new QListWidgetItem(action.getName());
-        widgetItem->setData(99, action.getId());
+        QListWidgetItem *widgetItem = new QListWidgetItem(action->getName());
+        widgetItem->setData(99, action->getId());
         this->listWidget->insertItem(latestRow, widgetItem);
     }
 }

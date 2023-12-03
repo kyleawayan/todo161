@@ -17,9 +17,10 @@ public:
     void addAction(QString name);
     void addEvent(QString name, QDateTime date);
     void deleteAction(int id);
-    QVector<Action> getActions();
+    QVector<Action*> getActions();
 private:
-    QVector<Action> actions;
+    QVector<Action*> actions;
+    int getLastId();
 };
 
 #endif // TODO_H
