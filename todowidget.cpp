@@ -25,12 +25,16 @@ TodoWidget::TodoWidget(QWidget *parent)
     QPushButton *addButton = new QPushButton("Add item", this);
     connect(addButton, &QPushButton::clicked, this, &TodoWidget::addItem);
 
+    QPushButton *deleteButton = new QPushButton("Mark completed", this);
+    connect(deleteButton, &QPushButton::clicked, this, &TodoWidget::removeItem);
+
     // Create a QListWidget
     listWidget = new QListWidget(this);
     listWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     // Add widgets to the toolbar layout
     toolbarLayout->addWidget(addButton);
+    toolbarLayout->addWidget(deleteButton);
 
     // Add widgets to the main layout
     mainLayout->addWidget(toolbarWidget);
@@ -47,6 +51,18 @@ void TodoWidget::addItem()
     this->updateList();
 }
 
+void TodoWidget::removeItem()
+{
+    QList<QListWidgetItem*> selectedItems = this->listWidget->selectedItems();
+
+    for (QListWidgetItem* widgetItem : selectedItems)
+    {
+        int todoId = widgetItem->data(99).toInt();
+        this->mainTodo.deleteAction(todoId);
+    }
+    this->updateList();
+}
+
 void TodoWidget::updateList()
 {
     this->listWidget->clear();
@@ -56,6 +72,7 @@ void TodoWidget::updateList()
     {
         int latestRow = this->listWidget->currentRow();
         QListWidgetItem *widgetItem = new QListWidgetItem(action.getName());
+        widgetItem->setData(99, action.getId());
         this->listWidget->insertItem(latestRow, widgetItem);
     }
 }

@@ -24,7 +24,19 @@ void Todo::addAction(QString name) {
 void Todo::addEvent(QString name, QDateTime) {}
 
 void Todo::deleteAction(int id) {
-    this->deleteAction(id);
+    // Find the index of the action with the specified id
+    int indexToRemove = -1;
+    for (int i = 0; i < this->actions.size(); ++i) {
+        if (this->actions[i].getId() == id) {
+            indexToRemove = i;
+            break;
+        }
+    }
+
+    // Remove the action if it was found
+    if (indexToRemove != -1) {
+        this->actions.remove(indexToRemove);
+    }
 }
 
 QVector<Action> Todo::getActions() {

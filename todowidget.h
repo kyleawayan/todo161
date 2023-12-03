@@ -14,6 +14,7 @@ public:
 private:
     QListWidget *listWidget;
     void addItem();
+    void removeItem();
     void updateList();
 };
 
