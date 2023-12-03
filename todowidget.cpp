@@ -6,6 +6,7 @@
 #include <QListWidgetItem>
 #include <QInputDialog>
 #include <QLCDNumber>
+#include <QLabel>
 
 #include "todowidget.h"
 #include "todo.h"
@@ -42,9 +43,14 @@ TodoWidget::TodoWidget(QWidget *parent)
     toolbarLayout->addWidget(addButton);
     toolbarLayout->addWidget(deleteButton);
 
+    // What do you need to do today?
+    QLabel* label = new QLabel(this);
+    label->setText("Things to do today:");
+
     // Add widgets to the main layout
     mainLayout->addWidget(lcdScreen);
     mainLayout->addWidget(toolbarWidget);
+    mainLayout->addWidget(label);
     mainLayout->addWidget(listWidget);
 
     // Set the main layout for the custom widget
