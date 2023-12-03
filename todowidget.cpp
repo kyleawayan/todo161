@@ -23,10 +23,9 @@ TodoWidget::TodoWidget(QWidget *parent)
     QWidget *toolbarWidget = new QWidget(this);
     QHBoxLayout *toolbarLayout = new QHBoxLayout(toolbarWidget);
 
-    // Create a QPushButton with a plus icon
+    // Create toolbar buttons
     QPushButton *addButton = new QPushButton("Add Action", this);
     connect(addButton, &QPushButton::clicked, this, &TodoWidget::addItem);
-
     QPushButton *deleteButton = new QPushButton("Mark Completed", this);
     connect(deleteButton, &QPushButton::clicked, this, &TodoWidget::removeItem);
 
