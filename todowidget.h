@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QListWidget>
+#include <QLCDNumber>
 #include "todo.h"
 
 class TodoWidget : public QWidget
@@ -10,6 +11,7 @@ class TodoWidget : public QWidget
     Q_OBJECT
 public:
     Todo mainTodo;
+    QLCDNumber *lcdScreen;
     explicit TodoWidget(QWidget *parent = nullptr);
 private:
     QListWidget *listWidget;

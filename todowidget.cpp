@@ -5,6 +5,7 @@
 #include <QIcon>
 #include <QListWidgetItem>
 #include <QInputDialog>
+#include <QLCDNumber>
 
 #include "todowidget.h"
 #include "todo.h"
@@ -33,11 +34,17 @@ TodoWidget::TodoWidget(QWidget *parent)
     listWidget = new QListWidget(this);
     listWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
+    // Create LCD screen
+    lcdScreen = new QLCDNumber(this);
+    lcdScreen->setSegmentStyle(QLCDNumber::Flat);
+    lcdScreen->setMinimumHeight(50);
+
     // Add widgets to the toolbar layout
     toolbarLayout->addWidget(addButton);
     toolbarLayout->addWidget(deleteButton);
 
     // Add widgets to the main layout
+    mainLayout->addWidget(lcdScreen);
     mainLayout->addWidget(toolbarWidget);
     mainLayout->addWidget(listWidget);
 
@@ -76,6 +83,9 @@ void TodoWidget::updateList()
     this->listWidget->clear();
 
     QVector<Action> actions = this->mainTodo.getActions();
+    int actionsCount = actions.length();
+    this->lcdScreen->display(actionsCount);
+
     for (Action &action : actions)
     {
         int latestRow = this->listWidget->currentRow();
