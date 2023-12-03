@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     // ui->setupUi(this);
     setCentralWidget(new TodoWidget());
+    setWindowTitle("todo161");
 }
 
 MainWindow::~MainWindow()
