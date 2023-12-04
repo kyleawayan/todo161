@@ -5,7 +5,7 @@ A simple to-do list app, made for a CSE 161 class project.
 
 ## Features
 - Simple and reactive UI.
-- Big number in UI shows how many tasks and events left at an easy glance.
+- Large display of remaining items shows how many tasks and events are left at an easy glance.
 - Create to-do items.
 - Create events, which feature a live countdown until the event.
 - Mark tasks as completed to remove them from the list.
@@ -16,7 +16,9 @@ Object-oriented programming concepts are used throughout this app. Other than th
 
 To summarize the structure of these three objects, the `Action` class is created. This stores simple things such as the name of the action and ID. Another class called `Event` is created. `Event` inherits from `Action`, with the additional methods of setting a timestamp.
 
-A class called `Todo` manages the `Action` and `Event` objects. Alongside of storing a vector of the objects, there are methods to manage the vector of objects, such as deleting them or retrieving an object based on its ID.
+A class called `Todo` manages the `Action` and `Event` objects. In addition to storing a vector of these objects, there are methods to manage the vector of objects, such as deleting them or retrieving an object based on its ID.
 
 ## Development
 Qt Creator is required. Loading the project into Qt Creator is all that is needed to develop on the project.
+
+This project was developed on Qt Creator 12.0.0.
