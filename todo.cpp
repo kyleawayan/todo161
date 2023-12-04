@@ -43,6 +43,8 @@ void Todo::addEvent(QString name, QDateTime time) {
     int latestId = this->getLastId();
 
     Event* newEvent = new Event(latestId+1, name, time);
+
+    // Implicit upcast
     this->actions.append(newEvent);
 }
 
