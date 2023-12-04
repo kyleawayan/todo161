@@ -11,6 +11,8 @@ class Event : public Action
 public:
     Event(int id, QString name, QDateTime time);
     QTime getTimeUntilEvent();
+    QString getTimeUntilEventString();
+    int getType() const override;
 private:
     QDateTime eventTime;
 };

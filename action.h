@@ -10,6 +10,7 @@ public:
     void markAsCompleted();
     int getId();
     QString getName();
+    virtual int getType() const;
 private:
     int id;
     QString name;

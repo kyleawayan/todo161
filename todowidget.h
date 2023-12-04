@@ -19,6 +19,7 @@ private:
     void addEvent();
     void removeItem();
     void updateList();
+    void updateCountdowns();
 };
 
 #endif // TODOWIDGET_H

@@ -7,6 +7,10 @@ Action::Action(int id, QString name) {
     this->name = name;
 }
 
+int Action::getType() const {
+    return 0;
+}
+
 int Action::getId() {
     return this->id;
 }

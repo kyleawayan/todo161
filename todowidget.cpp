@@ -7,10 +7,12 @@
 #include <QInputDialog>
 #include <QLCDNumber>
 #include <QLabel>
+#include <QTimer>
 
 #include "todowidget.h"
 #include "todo.h"
 #include "eventdialog.h"
+#include "event.h"
 
 TodoWidget::TodoWidget(QWidget *parent)
     : QWidget(parent)
@@ -57,6 +59,11 @@ TodoWidget::TodoWidget(QWidget *parent)
     mainLayout->addWidget(label);
     mainLayout->addWidget(listWidget);
 
+    // Update countdowns
+    QTimer* timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &TodoWidget::updateCountdowns);
+    timer->start(1000);
+
     // Set the main layout for the custom widget
     setLayout(mainLayout);
 }
@@ -68,7 +75,7 @@ void TodoWidget::addItem()
     QString text = QInputDialog::getText(this, tr("Add Action"),
                                         tr("What do you need to do?"), QLineEdit::Normal,
                                         "" ,&ok);
-    if (ok && !text.isEmpty()) {
+    if (ok) {
         this->mainTodo.addAction(text);
         this->updateList();
     }
@@ -113,5 +120,31 @@ void TodoWidget::updateList()
         QListWidgetItem *widgetItem = new QListWidgetItem(action->getName());
         widgetItem->setData(99, action->getId());
         this->listWidget->insertItem(latestRow, widgetItem);
+    }
+
+    this->updateCountdowns();
+}
+
+void TodoWidget::updateCountdowns()
+{
+    for (int i = 0; i < this->listWidget->count(); i++)
+    {
+        QListWidgetItem* widgetItem = this->listWidget->item(i);
+        int todoId = widgetItem->data(99).toInt();
+        Action* todoItem = this->mainTodo.getActionById(todoId);
+
+        if (todoItem->getType() != 1) {
+            continue;
+        }
+
+        Event* eventItem = static_cast<Event*>(todoItem);
+
+        QString remainingTimeString = eventItem->getTimeUntilEventString();
+        QString actualEventName = eventItem->getName();
+        QString spacer = QString(", ");
+
+        QString sentence = actualEventName + spacer + remainingTimeString;
+
+        widgetItem->setText(sentence);
     }
 }

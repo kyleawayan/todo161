@@ -20,6 +20,18 @@ int Todo::getLastId() {
     return latestId;
 }
 
+int Todo::findIndexFromId(int id) {
+    int indexToRemove = -1;
+    for (int i = 0; i < this->actions.size(); ++i) {
+        if (this->actions[i]->getId() == id) {
+            indexToRemove = i;
+            break;
+        }
+    }
+
+    return indexToRemove;
+}
+
 void Todo::addAction(QString name) {
     int latestId = this->getLastId();
 
@@ -35,14 +47,7 @@ void Todo::addEvent(QString name, QDateTime time) {
 }
 
 void Todo::deleteAction(int id) {
-
-    int indexToRemove = -1;
-    for (int i = 0; i < this->actions.size(); ++i) {
-        if (this->actions[i]->getId() == id) {
-            indexToRemove = i;
-            break;
-        }
-    }
+    int indexToRemove = findIndexFromId(id);
 
     // Remove the action if it was found
     if (indexToRemove != -1) {
@@ -51,6 +56,12 @@ void Todo::deleteAction(int id) {
         // Remove pointer from vector
         this->actions.remove(indexToRemove);
     }
+}
+
+Action* Todo::getActionById(int id) {
+    int indexToGet = findIndexFromId(id);
+
+    return this->actions[indexToGet];
 }
 
 QVector<Action*> Todo::getActions() {
