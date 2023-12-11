@@ -1,5 +1,5 @@
 # todo161
-A simple to-do list app, made for a CSE 161 class project.
+A simple to-do list app, made for an Object Oriented Programming class project.
 
 <img width="505" alt="Screenshot 2023-12-03 at 5 06 05 PM" src="https://github.com/kyleawayan/todo161/assets/56655579/6d4a2bd7-4cd6-471b-9bff-3ae6d998b281">
 
